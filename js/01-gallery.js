@@ -22,6 +22,10 @@ divRef.insertAdjacentHTML('afterbegin', createGalleryMarkup);
 
 divRef.addEventListener('click', modalWindowOnImageClick);
 
+const instance = basicLightbox.create(`
+    <img src="" width="800" height="600">
+`);
+
 function modalWindowOnImageClick(event) {
   event.preventDefault();
 
@@ -29,12 +33,7 @@ function modalWindowOnImageClick(event) {
     return;
   }
 
-  const srclImgEl = event.target.dataset.source;
-
-  const instance = basicLightbox.create(`
-    <img src="${srclImgEl}" width="800" height="600">
-`);
-
+  instance.element().querySelector('img').src = event.target.dataset.source;
   instance.show();
 
   window.addEventListener('keydown', onModalClose);
@@ -42,6 +41,7 @@ function modalWindowOnImageClick(event) {
   function onModalClose(event) {
     if (event.code === 'Escape') {
       instance.close();
+      console.log('click click');
       window.removeEventListener('keydown', onModalClose);
     }
   }
