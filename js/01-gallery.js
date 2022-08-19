@@ -37,9 +37,12 @@ function modalWindowOnImageClick(event) {
 
   instance.show();
 
-  divRef.addEventListener('keydown', event => {
+  window.addEventListener('keydown', onModalClose);
+
+  function onModalClose(event) {
     if (event.code === 'Escape') {
       instance.close();
+      window.removeEventListener('keydown', onModalClose);
     }
-  });
+  }
 }
